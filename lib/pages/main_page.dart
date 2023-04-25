@@ -2,12 +2,16 @@
 
 import 'package:flutter/material.dart';
 
+import 'login/login_page.dart';
+
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
-  void action(String value) {
+  void action(BuildContext context, String value) {
     if (value == '0') {
-      print('登陆');
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return const LoginPage();
+      }));
     } else {
       print('注册');
     }
@@ -53,7 +57,7 @@ class MainPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onTap: () => action(valueStr),
+                  onTap: () => action(context, valueStr),
                 );
               }).toList(),
               //   children: [
