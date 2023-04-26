@@ -7,9 +7,6 @@ class CloseBar extends AppBar {
           backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
           elevation: 0, // 阴影
           leading: InkWell(
-            splashColor: Colors.transparent, // 取消按钮点击颜色效果1
-            highlightColor: Colors.transparent, // 取消按钮点击颜色效果2
-            hoverColor: Colors.transparent, // 取消按钮点击颜色效果3
             onTap: () => Navigator.of(navigatorKey.currentState!.context).pop(),
             child: UnconstrainedBox(
               child: Image.asset(

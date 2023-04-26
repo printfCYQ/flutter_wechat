@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_print
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_wechat/pages/root/root_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../widgets.appbar/close_bar.dart';
@@ -26,7 +28,7 @@ class DividingLine extends StatelessWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController controller = TextEditingController();
+  TextEditingController controller = TextEditingController(text: '13512345678');
 
   void login() {
     if (controller.text == '') {
@@ -39,7 +41,11 @@ class _LoginPageState extends State<LoginPage> {
       Fluttertoast.showToast(msg: '手机号码不正确', gravity: ToastGravity.CENTER);
       return;
     }
-    Fluttertoast.showToast(msg: '校验通过', gravity: ToastGravity.CENTER);
+    // Fluttertoast.showToast(msg: '校验通过', gravity: ToastGravity.CENTER);
+    Navigator.of(context).pushAndRemoveUntil(
+        CupertinoPageRoute(builder: (context) {
+      return const RootPage();
+    }), (route) => false);
   }
 
   @override
