@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_wechat/widgets/dialog/more_dialog.dart';
 
 class WechatPage extends StatefulWidget {
   const WechatPage({super.key});
@@ -27,20 +28,25 @@ class _WechatPageState extends State<WechatPage> {
           ),
         ),
         actions: [
-          GestureDetector(
-            behavior: HitTestBehavior.opaque, // 空白区域也可以点击
-            onTap: () {
-              print('more');
+          Builder(
+            builder: (context) {
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque, // 空白区域也可以点击
+                onTap: () {
+                  print('more');
+                  moreDialog(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: Image.asset(
+                    'assets/images/msg/msg_more.png',
+                    width: 30,
+                    height: 30,
+                  ),
+                ),
+              );
             },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: Image.asset(
-                'assets/images/msg/msg_more.png',
-                width: 30,
-                height: 30,
-              ),
-            ),
-          )
+          ),
         ],
       ),
       body: Column(
@@ -161,6 +167,7 @@ class _WechatPageState extends State<WechatPage> {
                                     fontSize: 12,
                                   ),
                                 ),
+                                const SizedBox(width: 16),
                               ],
                             ),
                             const SizedBox(height: 3),
@@ -170,7 +177,7 @@ class _WechatPageState extends State<WechatPage> {
                                 color: Color(0xffb3b3b3),
                                 fontSize: 13,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),

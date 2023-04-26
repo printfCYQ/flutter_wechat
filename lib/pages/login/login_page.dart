@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_wechat/pages/root/root_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../widgets.appbar/close_bar.dart';
+import '../../widgets/appbar/close_bar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

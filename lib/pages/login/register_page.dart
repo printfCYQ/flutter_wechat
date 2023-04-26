@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets.appbar/close_bar.dart';
+import '../../widgets/appbar/close_bar.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
