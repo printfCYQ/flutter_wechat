@@ -47,65 +47,101 @@ class _MoreDialogState extends State<MoreDialog> {
       },
       child: Align(
         alignment: Alignment.topRight,
-        child: Container(
-          width: 134,
-          height: itemHeight * 3,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(7)),
-            color: Color(0xff4c4c4c),
-          ),
-          margin: EdgeInsets.only(
-            top: widget.dy + kTextTabBarHeight,
-            right: 7,
-          ),
-          child: Column(
-            children: items.map(
-              (e) {
-                return SizedBox(
-                  height: itemHeight,
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 14,
-                      ),
-                      Image.asset(
-                        'assets/images/msg/${e[0]}.png',
-                        width: 22,
-                        height: 22,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: itemHeight - 1,
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: e[1] == items.last[1]
-                                    ? Colors.transparent
-                                    : const Color(0xff535353),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            SizedBox(
+              height: widget.dy + kTextTabBarHeight,
+            ),
+            Container(
+              height: 10,
+              width: 20,
+              margin: const EdgeInsets.only(right: 23),
+              child: CustomPaint(
+                painter: MoreTopPainter(),
+              ),
+            ),
+            Container(
+              width: 134,
+              height: itemHeight * items.length,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(7)),
+                color: Color(0xff4c4c4c),
+              ),
+              margin: const EdgeInsets.only(right: 7),
+              child: Column(
+                children: items.map(
+                  (e) {
+                    return SizedBox(
+                      height: itemHeight,
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 14,
+                          ),
+                          Image.asset(
+                            'assets/images/msg/${e[0]}.png',
+                            width: 22,
+                            height: 22,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: itemHeight - 1,
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: e[1] == items.last[1]
+                                        ? Colors.transparent
+                                        : const Color(0xff535353),
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                e[1],
+                                style: const TextStyle(
+                                  color: Color(0xffcfcfcf),
+                                  fontSize: 17,
+                                ),
                               ),
                             ),
                           ),
-                          child: Text(
-                            e[1],
-                            style: const TextStyle(
-                              color: Color(0xffcfcfcf),
-                              fontSize: 17,
-                            ),
-                          ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                );
-              },
-            ).toList(),
-          ),
+                    );
+                  },
+                ).toList(),
+              ),
+            ),
+          ],
         ),
       ),
     );
+  }
+}
+
+class MoreTopPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = const Color(0xff4c4c4c)
+      ..style = PaintingStyle.fill;
+
+    Path path = Path();
+    path.moveTo(0, size.height);
+    path.lineTo((size.width / 2) - 1, 0);
+    path.lineTo((size.width / 2) + 1, 0);
+    path.lineTo(size.width, size.height);
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
   }
 }
