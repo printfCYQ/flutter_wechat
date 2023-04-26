@@ -27,10 +27,10 @@ class _RootPageState extends State<RootPage> {
   PageController pageController = PageController();
 
   List<BottomModel> items = [
-    BottomModel(20, 20, 'msg', '微信'),
-    BottomModel(20, 20, 'contact', '通讯录'),
-    BottomModel(20, 20, 'find', '发现'),
-    BottomModel(20, 20, 'me', '我'),
+    BottomModel(25, 25, 'msg', '微信'),
+    BottomModel(25, 25, 'contact', '通讯录'),
+    BottomModel(25, 25, 'find', '发现'),
+    BottomModel(25, 25, 'me', '我'),
   ];
 
   List<Widget> pages = [
@@ -50,41 +50,65 @@ class _RootPageState extends State<RootPage> {
         },
         children: pages,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xff07c160),
-        unselectedItemColor: const Color(0xff1c1c1c),
-        selectedFontSize: 10,
-        unselectedFontSize: 10,
-        backgroundColor: const Color(0xfff9f9f9),
-        onTap: (value) {
-          currentIndex = value;
-          pageController.jumpToPage(currentIndex);
-          setState(() {});
-        },
-        items: items.map((e) {
-          BottomModel model = e;
-          return BottomNavigationBarItem(
-            icon: Container(
-              margin: const EdgeInsets.only(bottom: 4),
-              child: Image.asset(
-                'assets/images/bar/bottom_${model.iconName}_c.png',
-                width: model.width,
-                height: model.height,
+      bottomNavigationBar: Stack(
+        children: [
+          BottomNavigationBar(
+            currentIndex: currentIndex,
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: const Color(0xff07c160),
+            unselectedItemColor: const Color(0xff1c1c1c),
+            selectedFontSize: 10,
+            unselectedFontSize: 10,
+            backgroundColor: const Color(0xfff9f9f9),
+            onTap: (value) {
+              currentIndex = value;
+              pageController.jumpToPage(currentIndex);
+              setState(() {});
+            },
+            items: items.map((e) {
+              BottomModel model = e;
+              return BottomNavigationBarItem(
+                icon: Container(
+                  margin: const EdgeInsets.only(bottom: 4),
+                  child: Image.asset(
+                    'assets/images/bar/bottom_${model.iconName}_c.png',
+                    width: model.width,
+                    height: model.height,
+                  ),
+                ),
+                activeIcon: Container(
+                  margin: const EdgeInsets.only(bottom: 4),
+                  child: Image.asset(
+                    'assets/images/bar/bottom_${model.iconName}_s.png',
+                    width: model.width,
+                    height: model.height,
+                  ),
+                ),
+                label: model.label,
+              );
+            }).toList(),
+          ),
+          Positioned(
+            left: (MediaQuery.of(context).size.width / 4) / 2 + 5,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+              decoration: const BoxDecoration(
+                color: Color(0xfffa5151),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              child: const Text(
+                '3',
+                style: TextStyle(
+                  color: Color(0xffcfcfcf),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
-            activeIcon: Container(
-              margin: const EdgeInsets.only(bottom: 4),
-              child: Image.asset(
-                'assets/images/bar/bottom_${model.iconName}_s.png',
-                width: model.width,
-                height: model.height,
-              ),
-            ),
-            label: model.label,
-          );
-        }).toList(),
+          )
+        ],
       ),
     );
   }
