@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_wechat/pages/login/register_page.dart';
 
 import 'login/login_page.dart';
 
@@ -8,13 +9,9 @@ class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
   void action(BuildContext context, String value) {
-    if (value == '0') {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return const LoginPage();
-      }));
-    } else {
-      print('注册');
-    }
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return value == '0' ? const LoginPage() : const RegisterPage();
+    }));
   }
 
   @override

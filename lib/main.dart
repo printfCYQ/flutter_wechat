@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wechat/pages/main_page.dart';
 
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() {
   runApp(const MyApp());
 }
@@ -10,8 +12,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MainPage(),
+    return MaterialApp(
+      home: const MainPage(),
+      navigatorKey: navigatorKey,
     );
   }
 }

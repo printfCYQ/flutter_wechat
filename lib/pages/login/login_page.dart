@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../widgets.appbar/close_bar.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -48,173 +50,157 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     return Scaffold(
-        backgroundColor: Colors.white,
-        resizeToAvoidBottomInset: false, // 键盘唤醒不顶起页面
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0, // 阴影
-          leading: InkWell(
-            splashColor: Colors.transparent, // 取消按钮点击颜色效果1
-            highlightColor: Colors.transparent, // 取消按钮点击颜色效果2
-            hoverColor: Colors.transparent, // 取消按钮点击颜色效果3
-            onTap: () => Navigator.of(context).pop(),
-            child: UnconstrainedBox(
-              child: Image.asset(
-                'assets/images/login_close.png',
-                width: 25,
-                height: 25,
-              ),
-            ),
-          ),
-        ),
-        body: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            // 输入框失去焦点，键盘收起
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.all(32),
-                  children: [
-                    Column(
-                      children: [
-                        const SizedBox(height: 69 - 18),
-                        const Center(
-                          child: Text(
-                            '手机号登陆',
-                            style: TextStyle(
-                              color: Color(0xff1a1a1a),
-                              fontSize: 21,
-                              fontWeight: FontWeight.w600,
-                            ),
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false, // 键盘唤醒不顶起页面
+      appBar: CloseBar(),
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          // 输入框失去焦点，键盘收起
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.all(32),
+                children: [
+                  Column(
+                    children: [
+                      const SizedBox(height: 69 - 18),
+                      const Center(
+                        child: Text(
+                          '手机号登陆',
+                          style: TextStyle(
+                            color: Color(0xff1a1a1a),
+                            fontSize: 21,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(height: 47),
-                        const DividingLine(),
-                        const SizedBox(height: 17),
-                        Row(
+                      ),
+                      const SizedBox(height: 47),
+                      const DividingLine(),
+                      const SizedBox(height: 17),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 72 + 35,
+                            child: Text(
+                              '国家/地区',
+                              style: labelStyle,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              '中国大陆',
+                              style: labelStyle,
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 17),
+                      const DividingLine(),
+                      SizedBox(
+                        height: 23 + 16 + 18,
+                        child: Row(
                           children: [
                             SizedBox(
                               width: 72 + 35,
                               child: Text(
-                                '国家/地区',
+                                '手机号',
                                 style: labelStyle,
                               ),
                             ),
+                            const Text(
+                              '+86',
+                              style: TextStyle(
+                                  color: Color(0xff737373), fontSize: 16),
+                            ),
+                            const SizedBox(width: 10),
                             Expanded(
-                              child: Text(
-                                '中国大陆',
-                                style: labelStyle,
+                              child: TextField(
+                                controller: controller,
+                                keyboardType: TextInputType.number, // 键盘类型
+                                cursorColor: const Color(0xff07Ca60),
+                                cursorWidth: 2,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(11), // 最多11位
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp('[0-9]')) // 是能粘贴进数字
+                                ],
+                                onChanged: (value) {
+                                  setState(() {}); // 暂时全局更新页面
+                                },
+                                decoration: const InputDecoration(
+                                  hintText: '请输入手机号',
+                                  hintStyle: TextStyle(
+                                    color: Color(0xffB3B3B3),
+                                    fontSize: 16,
+                                  ),
+                                  border: InputBorder.none,
+                                ),
                               ),
-                            )
+                            ),
+                            if (controller.text != '')
+                              IconButton(
+                                onPressed: () {
+                                  controller.clear();
+                                },
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                icon: Image.asset(
+                                  'assets/images/login_input_delete.png',
+                                  width: 17,
+                                  height: 17,
+                                ),
+                              )
                           ],
                         ),
-                        const SizedBox(height: 17),
-                        const DividingLine(),
-                        SizedBox(
-                          height: 23 + 16 + 18,
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 72 + 35,
-                                child: Text(
-                                  '手机号',
-                                  style: labelStyle,
-                                ),
-                              ),
-                              const Text(
-                                '+86',
-                                style: TextStyle(
-                                    color: Color(0xff737373), fontSize: 16),
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: TextField(
-                                  controller: controller,
-                                  keyboardType: TextInputType.number, // 键盘类型
-                                  cursorColor: const Color(0xff07Ca60),
-                                  cursorWidth: 2,
-                                  inputFormatters: [
-                                    LengthLimitingTextInputFormatter(
-                                        11), // 最多11位
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp('[0-9]')) // 是能粘贴进数字
-                                  ],
-                                  onChanged: (value) {
-                                    setState(() {}); // 暂时全局更新页面
-                                  },
-                                  decoration: const InputDecoration(
-                                    hintText: '请输入手机号',
-                                    hintStyle: TextStyle(
-                                      color: Color(0xffB3B3B3),
-                                      fontSize: 16,
-                                    ),
-                                    border: InputBorder.none,
-                                  ),
-                                ),
-                              ),
-                              if (controller.text != '')
-                                IconButton(
-                                  onPressed: () {
-                                    controller.clear();
-                                  },
-                                  splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  icon: Image.asset(
-                                    'assets/images/login_input_delete.png',
-                                    width: 17,
-                                    height: 17,
-                                  ),
-                                )
-                            ],
-                          ),
-                        ),
-                        const DividingLine(),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const Text(
-                '上述手机号仅用于登录验证',
-                style: TextStyle(
-                  color: Color(0xffB3B3B3),
-                  fontSize: 13,
-                ),
-              ),
-              const SizedBox(height: 22),
-              InkWell(
-                child: Container(
-                  width: 184,
-                  height: 48,
-                  decoration: const BoxDecoration(
-                    color: Color(0xff07C160),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(9),
-                    ),
+                      ),
+                      const DividingLine(),
+                    ],
                   ),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    '同意并继续',
-                    style: TextStyle(
-                      color: Color(0xffFFFFFF),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                ],
+              ),
+            ),
+            const Text(
+              '上述手机号仅用于登录验证',
+              style: TextStyle(
+                color: Color(0xffB3B3B3),
+                fontSize: 13,
+              ),
+            ),
+            const SizedBox(height: 22),
+            InkWell(
+              child: Container(
+                width: 184,
+                height: 48,
+                decoration: const BoxDecoration(
+                  color: Color(0xff07C160),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(9),
                   ),
                 ),
-                onTap: () => login(),
+                alignment: Alignment.center,
+                child: const Text(
+                  '同意并继续',
+                  style: TextStyle(
+                    color: Color(0xffFFFFFF),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
-              const SizedBox(height: 101),
-              SizedBox(
-                height: MediaQuery.of(context).padding.bottom,
-              )
-            ],
-          ),
-        ));
+              onTap: () => login(),
+            ),
+            const SizedBox(height: 101),
+            SizedBox(
+              height: MediaQuery.of(context).padding.bottom,
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
