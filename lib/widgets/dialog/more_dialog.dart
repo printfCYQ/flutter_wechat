@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wechat/pages/more/add_friend_page.dart';
 
 OverlayEntry? entry;
 
@@ -41,6 +42,28 @@ class _MoreDialogState extends State<MoreDialog> {
       ['msg_more_add_friend', '添加朋友'],
       ['msg_more_scan', '扫一扫'],
     ];
+
+    void action(String value) {
+      switch (value) {
+        case '发起聊天':
+          print('发起聊天');
+          entry!.remove();
+          break;
+        case '添加朋友':
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return const AddFriendPage();
+          }));
+          entry!.remove();
+          break;
+        case '扫一扫':
+          print('扫一扫');
+          entry!.remove();
+          break;
+        default:
+          break;
+      }
+    }
+
     return InkWell(
       onTap: () {
         entry!.remove();
@@ -72,44 +95,47 @@ class _MoreDialogState extends State<MoreDialog> {
               child: Column(
                 children: items.map(
                   (e) {
-                    return SizedBox(
-                      height: itemHeight,
-                      child: Row(
-                        children: [
-                          const SizedBox(
-                            width: 14,
-                          ),
-                          Image.asset(
-                            'assets/images/msg/${e[0]}.png',
-                            width: 22,
-                            height: 22,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: itemHeight - 1,
-                              alignment: Alignment.centerLeft,
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: e[1] == items.last[1]
-                                        ? Colors.transparent
-                                        : const Color(0xff535353),
+                    return InkWell(
+                      onTap: () => action(e[1]),
+                      child: SizedBox(
+                        height: itemHeight,
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 14,
+                            ),
+                            Image.asset(
+                              'assets/images/msg/${e[0]}.png',
+                              width: 22,
+                              height: 22,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: itemHeight - 1,
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      color: e[1] == items.last[1]
+                                          ? Colors.transparent
+                                          : const Color(0xff535353),
+                                    ),
+                                  ),
+                                ),
+                                child: Text(
+                                  e[1],
+                                  style: const TextStyle(
+                                    color: Color(0xffcfcfcf),
+                                    fontSize: 17,
                                   ),
                                 ),
                               ),
-                              child: Text(
-                                e[1],
-                                style: const TextStyle(
-                                  color: Color(0xffcfcfcf),
-                                  fontSize: 17,
-                                ),
-                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
