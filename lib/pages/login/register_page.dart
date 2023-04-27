@@ -13,6 +13,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CloseBar(),
       body: const Center(
         child: Text('无需注册，直接用手机号登录'),
