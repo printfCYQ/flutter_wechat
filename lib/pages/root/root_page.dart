@@ -43,7 +43,7 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        physics: const NeverScrollableScrollPhysics(), // 禁止左右滑动切换页面
+        // physics: const NeverScrollableScrollPhysics(), // 禁止左右滑动切换页面
         controller: pageController,
         onPageChanged: (value) {
           currentIndex = value;

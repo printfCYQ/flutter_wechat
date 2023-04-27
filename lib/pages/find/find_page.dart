@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wechat/widgets/appbar/nav_bar.dart';
 
 class FindPage extends StatefulWidget {
   const FindPage({super.key});
@@ -11,9 +12,11 @@ class _FindPageState extends State<FindPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('发现'),
+      backgroundColor: Colors.white,
+      appBar: NavBar(
+        title: '发现',
       ),
+      body: const Text('发现'),
     );
   }
 }
